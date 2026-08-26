@@ -1,0 +1,16 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/onboarding/page": "app/onboarding/page.js",
+  "/register/page": "app/register/page.js",
+  "/(app)/explore/page": "app/(app)/explore/page.js",
+  "/(app)/connections/page": "app/(app)/connections/page.js",
+  "/(app)/dsa/page": "app/(app)/dsa/page.js",
+  "/(app)/opportunities/page": "app/(app)/opportunities/page.js",
+  "/(app)/messages/page": "app/(app)/messages/page.js",
+  "/(app)/profile/page": "app/(app)/profile/page.js",
+  "/(app)/dashboard/page": "app/(app)/dashboard/page.js",
+  "/(app)/students/[id]/page": "app/(app)/students/[id]/page.js",
+  "/(app)/notifications/page": "app/(app)/notifications/page.js"
+}

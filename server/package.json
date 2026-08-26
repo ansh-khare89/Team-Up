@@ -1,0 +1,18 @@
+{
+  "name": "team-up-server",
+  "version": "1.0.0",
+  "description": "Team Up Platform Backend API & Real-time Server",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1"
+  }
+}
