@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { api } from '../../../services/api';
 import { Conversation, Message, User } from '../../../types';
 import { Send, MessageSquare, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 
-export default function MessagesPage() {
+function MessagesContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const initialUser = searchParams.get('user');
@@ -199,6 +199,14 @@ export default function MessagesPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function MessagesPage() {
+  return (
+    <Suspense fallback={<div className="flex h-screen items-center justify-center text-slate-500">Loading messages...</div>}>
+      <MessagesContent />
+    </Suspense>
   );
 }
 
