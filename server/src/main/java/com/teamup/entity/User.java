@@ -47,7 +47,7 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_availability_days", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "day")
+    @Column(name = "available_day")
     private List<String> availabilityDays = new ArrayList<>();
 
     private String availabilityTime;

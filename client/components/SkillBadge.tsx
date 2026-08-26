@@ -1,18 +1,18 @@
 import { Skill } from '../types';
 
 const LEVEL_STYLES: Record<string, string> = {
-  Advanced: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
-  Intermediate: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-  Beginner: 'bg-slate-700/60 text-slate-400 border border-slate-600',
+  Advanced: 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
+  Intermediate: 'bg-indigo-50 text-indigo-700 border-indigo-200/80',
+  Beginner: 'bg-slate-100 text-slate-700 border-slate-200',
 };
 
 const CATEGORY_DOT: Record<string, string> = {
-  'Programming Languages': 'bg-violet-400',
-  'Web Development': 'bg-blue-400',
-  'AI / Machine Learning': 'bg-amber-400',
-  'Mobile Development': 'bg-emerald-400',
-  'DevOps / Cloud': 'bg-orange-400',
-  'Problem Solving': 'bg-red-400',
+  'Programming Languages': 'bg-violet-500',
+  'Web Development': 'bg-indigo-500',
+  'AI / Machine Learning': 'bg-amber-500',
+  'Mobile Development': 'bg-emerald-500',
+  'DevOps / Cloud': 'bg-sky-500',
+  'Problem Solving': 'bg-rose-500',
   'Other Technical Skills': 'bg-slate-400',
 };
 
@@ -26,12 +26,13 @@ export default function SkillBadge({ skill, showLevel = true }: SkillBadgeProps)
   const dot = CATEGORY_DOT[skill.category] || 'bg-slate-400';
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium ${style}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${style}`}>
       <span className={`w-1.5 h-1.5 rounded-full ${dot} flex-shrink-0`} />
-      {skill.name}
+      <span>{skill.name}</span>
       {showLevel && (
-        <span className="opacity-60">· {skill.level}</span>
+        <span className="opacity-60 text-[10px] font-normal">· {skill.level}</span>
       )}
     </span>
   );
 }
+
