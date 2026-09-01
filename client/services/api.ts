@@ -1,6 +1,15 @@
 import { User, StudentMatch, Connection, Message, Conversation, Opportunity, NotificationItem, DSAProfile } from '../types';
 
-const API_BASE = 'http://localhost:5000/api';
+const getApiBase = () => {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (envUrl && envUrl.trim()) {
+    const trimmed = envUrl.trim().replace(/\/+$/, '');
+    return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+  }
+  return 'http://localhost:5000/api';
+};
+
+const API_BASE = getApiBase();
 
 function getAuthHeaders() {
   const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';

@@ -15,7 +15,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/chat")
-@CrossOrigin(origins = "*")
 public class ChatController {
 
     private final MessageRepository messageRepository;

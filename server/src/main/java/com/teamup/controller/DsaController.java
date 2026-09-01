@@ -12,7 +12,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/dsa")
-@CrossOrigin(origins = "*")
 public class DsaController {
 
     private final UserRepository userRepository;

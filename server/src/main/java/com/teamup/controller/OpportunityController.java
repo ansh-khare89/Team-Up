@@ -13,7 +13,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/opportunities")
-@CrossOrigin(origins = "*")
 public class OpportunityController {
 
     private final OpportunityRepository opportunityRepository;

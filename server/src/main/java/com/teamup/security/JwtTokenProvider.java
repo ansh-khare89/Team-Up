@@ -2,16 +2,28 @@ package com.teamup.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-    private final Key key = Keys.hmacShaKeyFor("team-up-super-secret-jwt-key-2026-spring-boot-architecture".getBytes());
+    private final Key key;
     private final long expirationMs = 864000000; // 10 days
+
+    public JwtTokenProvider(@Value("${JWT_SECRET:#{null}}") String jwtSecret) {
+        if (jwtSecret == null || jwtSecret.trim().isEmpty()) {
+            throw new IllegalStateException("JWT_SECRET environment variable is missing or empty. Please set JWT_SECRET.");
+        }
+        if (jwtSecret.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalStateException("JWT_SECRET must be at least 32 bytes (256 bits) long for secure HS256 signing.");
+        }
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(String userId, String email) {
         Date now = new Date();

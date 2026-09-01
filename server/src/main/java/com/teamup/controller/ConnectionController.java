@@ -14,7 +14,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/connections")
-@CrossOrigin(origins = "*")
 public class ConnectionController {
 
     private final ConnectionRepository connectionRepository;

@@ -29,6 +29,8 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-teamup_user}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-change_this_password}
       PORT: 5000
+      JWT_SECRET: ${JWT_SECRET:-team-up-super-secret-jwt-key-2026-spring-boot-architecture}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
     ports:
       - "5000:5000"
     depends_on:
