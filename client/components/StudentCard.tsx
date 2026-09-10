@@ -7,7 +7,7 @@ import { useState } from 'react';
 import SkillBadge from './SkillBadge';
 import GoalChip from './GoalChip';
 import MatchScoreBar from './MatchScoreBar';
-import { UserPlus, Check, ExternalLink, Sparkles, GraduationCap, Flame } from 'lucide-react';
+import { UserPlus, Check, ExternalLink, Sparkles, GraduationCap, Flame, Zap } from 'lucide-react';
 
 interface StudentCardProps {
   student: User;
@@ -20,17 +20,17 @@ const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string 
   'Actively Looking': {
     label: 'Actively Looking',
     dot: 'bg-emerald-500 animate-pulse-live',
-    badge: 'bg-emerald-50 text-emerald-700 border-emerald-200'
+    badge: 'bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-700 border-emerald-200'
   },
   'Open to Opportunities': {
     label: 'Open to Collabs',
-    dot: 'bg-blue-500',
-    badge: 'bg-blue-50 text-blue-700 border-blue-200'
+    dot: 'bg-sky-500',
+    badge: 'bg-gradient-to-r from-sky-50 to-blue-50 text-sky-700 border-sky-200'
   },
   'Not Looking Right Now': {
     label: 'Focusing on Studies',
-    dot: 'bg-slate-400',
-    badge: 'bg-slate-100 text-slate-600 border-slate-200'
+    dot: 'bg-stone-400',
+    badge: 'bg-gradient-to-r from-stone-50 to-gray-50 text-stone-600 border-stone-200'
   },
 };
 
@@ -61,7 +61,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
   const streak = student.dsaProfile?.streakCount || 0;
 
   return (
-    <div className="card-human rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between group bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300">
+    <div className="card-human rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between group bg-white border border-orange-100 shadow-sm">
       <div>
         {/* Header with Avatar, Details & Status */}
         <div className="flex items-start gap-3.5 mb-3.5">
@@ -75,10 +75,10 @@ export default function StudentCard({ student, match, showConnect = true, onConn
                 width={56}
                 height={56}
                 onError={() => setImgError(true)}
-                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-slate-100 group-hover:ring-indigo-200 transition-all shadow-sm"
+                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-orange-100 group-hover:ring-orange-300 transition-all shadow-sm"
               />
             ) : (
-              <div className="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-sm">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center text-xl font-bold text-white shadow-sm">
                 {student.name[0]}
               </div>
             )}
@@ -89,7 +89,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-1.5">
               <Link href={`/students/${student.id}`} className="hover:underline">
-                <h3 className="font-bold text-slate-900 text-base group-hover:text-indigo-600 transition-colors truncate">
+                <h3 className="font-bold text-stone-900 text-base group-hover:text-orange-600 transition-colors truncate">
                   {student.name}
                 </h3>
               </Link>
@@ -98,20 +98,20 @@ export default function StudentCard({ student, match, showConnect = true, onConn
               </span>
             </div>
 
-            <div className="flex items-center gap-1 text-slate-500 text-xs mt-1 font-medium">
-              <GraduationCap size={13} className="text-indigo-600 flex-shrink-0" />
+            <div className="flex items-center gap-1 text-stone-500 text-xs mt-1 font-medium">
+              <GraduationCap size={13} className="text-orange-500 flex-shrink-0" />
               <span className="truncate">{student.college}</span>
             </div>
             
-            <p className="text-slate-500 text-xs mt-0.5 truncate">
-              {student.branch} · <span className="text-slate-700 font-medium">{student.yearOfStudy || student.year}</span>
+            <p className="text-stone-500 text-xs mt-0.5 truncate">
+              {student.branch} · <span className="text-stone-700 font-medium">{student.yearOfStudy || student.year}</span>
             </p>
           </div>
         </div>
 
         {/* Bio / Quote */}
         {student.bio && (
-          <p className="text-slate-600 text-xs leading-relaxed mb-3.5 line-clamp-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100 italic">
+          <p className="text-stone-600 text-xs leading-relaxed mb-3.5 line-clamp-2 bg-gradient-to-r from-orange-50 to-amber-50 p-2.5 rounded-xl border border-orange-100 italic">
             "{student.bio}"
           </p>
         )}
@@ -124,7 +124,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
                 <SkillBadge key={i} skill={s} showLevel={false} />
               ))}
               {(student.skills?.length || 0) > 4 && (
-                <span className="text-[11px] text-slate-500 px-2 py-0.5 bg-slate-100 rounded-md border border-slate-200 font-medium">
+                <span className="text-[11px] text-stone-500 px-2 py-0.5 bg-gradient-to-r from-orange-50 to-amber-50 rounded-md border border-orange-200 font-medium">
                   +{student.skills.length - 4} more
                 </span>
               )}
@@ -138,7 +138,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
             <GoalChip key={g} goalId={g} />
           ))}
           {streak > 0 && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-xl bg-orange-50 border border-orange-200 text-orange-700 text-xs font-semibold">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 text-orange-700 text-xs font-semibold">
               <Flame size={12} className="text-orange-500 fill-orange-500" />
               {streak}d streak
             </span>
@@ -147,13 +147,13 @@ export default function StudentCard({ student, match, showConnect = true, onConn
 
         {/* Match score bar if available */}
         {match && (
-          <div className="mb-4 bg-indigo-50/50 p-2.5 rounded-xl border border-indigo-100">
+          <div className="mb-4 bg-gradient-to-r from-orange-50/50 to-amber-50/50 p-2.5 rounded-xl border border-orange-100">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-semibold text-indigo-900 flex items-center gap-1">
-                <Sparkles size={12} className="text-indigo-600" />
+              <span className="text-xs font-semibold text-orange-900 flex items-center gap-1">
+                <Sparkles size={12} className="text-orange-500" />
                 Compatibility Score
               </span>
-              <span className="text-xs font-bold text-indigo-700">{match.compatibilityPercentage}%</span>
+              <span className="text-xs font-bold text-orange-700">{match.compatibilityPercentage}%</span>
             </div>
             <MatchScoreBar percentage={match.compatibilityPercentage} compact />
           </div>
@@ -162,14 +162,14 @@ export default function StudentCard({ student, match, showConnect = true, onConn
 
       {/* Action Footer */}
       {showConnect && (
-        <div className="flex items-center gap-2 pt-3 border-t border-slate-100 mt-auto">
+        <div className="flex items-center gap-2 pt-3 border-t border-orange-100 mt-auto">
           <button
             onClick={handleConnect}
             disabled={loading || connected}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold transition-all shadow-sm ${
+            className={`btn-creative flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold transition-all shadow-sm ${
               connected
-                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm hover:scale-[1.01] active:scale-[0.99]'
+                ? 'bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-700 border border-emerald-200'
+                : ''
             }`}
           >
             {loading ? (
@@ -183,7 +183,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
           
           <Link
             href={`/students/${student.id}`}
-            className="p-2 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 rounded-xl border border-slate-200 transition-colors"
+            className="p-2 bg-gradient-to-r from-orange-50 to-amber-50 hover:from-orange-100 hover:to-amber-100 text-stone-600 hover:text-stone-900 rounded-xl border border-orange-200 transition-colors"
             title="View Full Profile"
           >
             <ExternalLink size={15} />
