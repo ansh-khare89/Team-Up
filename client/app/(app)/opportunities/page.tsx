@@ -166,7 +166,7 @@ export default function OpportunitiesPage() {
                       <div className="flex -space-x-1">
                         {opp.interestedUsers.slice(0, 3).map(u => (
                           u.profilePicture
-                            ? <img key={u.id} src={u.profilePicture} alt={u.name} className="w-5 h-5 rounded-full ring-1 ring-white object-cover" />
+                            ? <img key={u.id} src={u.profilePicture} alt={u.name} loading="lazy" decoding="async" width={20} height={20} className="w-5 h-5 rounded-full ring-1 ring-white object-cover" />
                             : <div key={u.id} className="w-5 h-5 rounded-full ring-1 ring-white bg-indigo-600 flex items-center justify-center text-[10px] text-white font-bold">{u.name[0]}</div>
                         ))}
                       </div>

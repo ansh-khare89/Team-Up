@@ -168,14 +168,14 @@ export default function ExplorePage() {
       </div>
 
       {/* Grid of Student Cards */}
-      {loading ? (
+      {loading && students.length === 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {[1, 2, 3, 4, 5, 6].map(i => (
             <div key={i} className="h-64 bg-white rounded-2xl animate-pulse border border-slate-200 shadow-sm" />
           ))}
         </div>
       ) : students.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 transition-opacity duration-200 ${loading ? 'opacity-70' : 'opacity-100'}`}>
           {students.map(s => (
             <StudentCard key={s.id} student={s} match={s.match} />
           ))}

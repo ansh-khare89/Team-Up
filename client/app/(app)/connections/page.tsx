@@ -43,6 +43,7 @@ export default function ConnectionsPage() {
       <Link href={`/students/${conn.user.id}`} className="flex items-center gap-3.5 flex-1 min-w-0">
         {conn.user.profilePicture ? (
           <img src={conn.user.profilePicture} alt={conn.user.name}
+            loading="lazy" decoding="async" width={48} height={48}
             className="w-12 h-12 rounded-2xl object-cover ring-2 ring-slate-100 flex-shrink-0" />
         ) : (
           <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-lg font-bold text-white flex-shrink-0">

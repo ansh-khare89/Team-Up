@@ -37,6 +37,7 @@ const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string 
 export default function StudentCard({ student, match, showConnect = true, onConnected }: StudentCardProps) {
   const [connected, setConnected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const handleConnect = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,10 +66,15 @@ export default function StudentCard({ student, match, showConnect = true, onConn
         {/* Header with Avatar, Details & Status */}
         <div className="flex items-start gap-3.5 mb-3.5">
           <div className="relative flex-shrink-0">
-            {student.profilePicture ? (
+            {student.profilePicture && !imgError ? (
               <img
                 src={student.profilePicture}
                 alt={student.name}
+                loading="lazy"
+                decoding="async"
+                width={56}
+                height={56}
+                onError={() => setImgError(true)}
                 className="w-14 h-14 rounded-2xl object-cover ring-2 ring-slate-100 group-hover:ring-indigo-200 transition-all shadow-sm"
               />
             ) : (

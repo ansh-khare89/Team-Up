@@ -159,6 +159,7 @@ export default function DSAPage() {
                 <div className="flex items-start gap-3.5 mb-3">
                   {m.student.profilePicture ? (
                     <img src={m.student.profilePicture} alt={m.student.name}
+                      loading="lazy" decoding="async" width={48} height={48}
                       className="w-12 h-12 rounded-2xl object-cover ring-2 ring-slate-100" />
                   ) : (
                     <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-lg font-bold text-white">

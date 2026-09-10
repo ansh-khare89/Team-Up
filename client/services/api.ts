@@ -19,65 +19,147 @@ function getAuthHeaders() {
   };
 }
 
+// In-memory fast cache to make page transitions, scrolls, and tab switches instant
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+}
+
+const memoryCache = new Map<string, CacheEntry<any>>();
+const CACHE_TTL_MS = 20_000; // 20 seconds cache for snappy UI
+
+function getCached<T>(key: string): T | null {
+  const entry = memoryCache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.timestamp > CACHE_TTL_MS) {
+    memoryCache.delete(key);
+    return null;
+  }
+  return entry.data;
+}
+
+function setCached<T>(key: string, data: T): void {
+  memoryCache.set(key, { data, timestamp: Date.now() });
+}
+
+export function clearApiCache(prefix?: string) {
+  if (!prefix) {
+    memoryCache.clear();
+    return;
+  }
+  for (const key of Array.from(memoryCache.keys())) {
+    if (key.startsWith(prefix)) {
+      memoryCache.delete(key);
+    }
+  }
+}
+
+async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 12000): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    return res;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 export const api = {
+  clearCache: clearApiCache,
+
   login: async (credentials: any) => {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    clearApiCache();
+    const res = await fetchWithTimeout(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
     });
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({ error: 'Login failed' }));
       throw new Error(err.error || 'Login failed');
     }
     return res.json();
   },
 
   register: async (data: any) => {
-    const res = await fetch(`${API_BASE}/auth/register`, {
+    clearApiCache();
+    const res = await fetchWithTimeout(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({ error: 'Registration failed' }));
       throw new Error(err.error || 'Registration failed');
     }
     return res.json();
   },
 
-  getMe: async () => {
-    const res = await fetch(`${API_BASE}/auth/me`, {
+  getMe: async (): Promise<{ user: User }> => {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `me:${token}`;
+    const cached = getCached<{ user: User }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/auth/me`, {
       headers: getAuthHeaders()
     });
     if (!res.ok) throw new Error('Unauthorized');
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   getRecommendations: async (): Promise<{ recommendations: StudentMatch[] }> => {
-    const res = await fetch(`${API_BASE}/users/recommendations`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `recommendations:${token}`;
+    const cached = getCached<{ recommendations: StudentMatch[] }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/users/recommendations`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   exploreStudents: async (params: Record<string, string> = {}): Promise<{ students: (User & { match: any })[] }> => {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
     const query = new URLSearchParams(params).toString();
-    const res = await fetch(`${API_BASE}/users/explore?${query}`, {
+    const cacheKey = `explore:${token}:${query}`;
+    const cached = getCached<{ students: (User & { match: any })[] }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/users/explore?${query}`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   getStudentProfile: async (id: string): Promise<{ student: User; match: any }> => {
-    const res = await fetch(`${API_BASE}/users/profile/${id}`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `profile:${token}:${id}`;
+    const cached = getCached<{ student: User; match: any }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/users/profile/${id}`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   completeOnboarding: async (data: Partial<User>) => {
-    const res = await fetch(`${API_BASE}/users/onboarding`, {
+    clearApiCache();
+    const res = await fetchWithTimeout(`${API_BASE}/users/onboarding`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(data)
@@ -86,7 +168,8 @@ export const api = {
   },
 
   updateProfile: async (data: Partial<User>) => {
-    const res = await fetch(`${API_BASE}/users/profile`, {
+    clearApiCache();
+    const res = await fetchWithTimeout(`${API_BASE}/users/profile`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(data)
@@ -99,14 +182,23 @@ export const api = {
     sentRequests: Connection[];
     acceptedConnections: Connection[];
   }> => {
-    const res = await fetch(`${API_BASE}/connections`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `connections:${token}`;
+    const cached = getCached<any>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/connections`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   sendConnectionRequest: async (receiverId: string) => {
-    const res = await fetch(`${API_BASE}/connections/request`, {
+    clearApiCache('connections');
+    clearApiCache('recommendations');
+    const res = await fetchWithTimeout(`${API_BASE}/connections/request`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ receiverId })
@@ -115,7 +207,9 @@ export const api = {
   },
 
   respondToConnection: async (connectionId: string, action: 'Accept' | 'Decline') => {
-    const res = await fetch(`${API_BASE}/connections/respond/${connectionId}`, {
+    clearApiCache('connections');
+    clearApiCache('notifications');
+    const res = await fetchWithTimeout(`${API_BASE}/connections/respond/${connectionId}`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ action })
@@ -124,21 +218,21 @@ export const api = {
   },
 
   getConversations: async (): Promise<{ conversations: Conversation[] }> => {
-    const res = await fetch(`${API_BASE}/chat/conversations`, {
+    const res = await fetchWithTimeout(`${API_BASE}/chat/conversations`, {
       headers: getAuthHeaders()
     });
     return res.json();
   },
 
   getMessages: async (receiverId: string): Promise<{ messages: Message[]; user: User }> => {
-    const res = await fetch(`${API_BASE}/chat/messages/${receiverId}`, {
+    const res = await fetchWithTimeout(`${API_BASE}/chat/messages/${receiverId}`, {
       headers: getAuthHeaders()
     });
     return res.json();
   },
 
   sendMessage: async (receiverId: string, content: string): Promise<{ message: Message }> => {
-    const res = await fetch(`${API_BASE}/chat/send`, {
+    const res = await fetchWithTimeout(`${API_BASE}/chat/send`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ receiverId, content })
@@ -147,14 +241,22 @@ export const api = {
   },
 
   getOpportunities: async (): Promise<{ opportunities: Opportunity[] }> => {
-    const res = await fetch(`${API_BASE}/opportunities`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `opportunities:${token}`;
+    const cached = getCached<{ opportunities: Opportunity[] }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/opportunities`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   createOpportunity: async (data: Partial<Opportunity>): Promise<{ opportunity: Opportunity }> => {
-    const res = await fetch(`${API_BASE}/opportunities`, {
+    clearApiCache('opportunities');
+    const res = await fetchWithTimeout(`${API_BASE}/opportunities`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(data)
@@ -163,7 +265,8 @@ export const api = {
   },
 
   toggleOpportunityInterest: async (opportunityId: string): Promise<{ opportunity: Opportunity }> => {
-    const res = await fetch(`${API_BASE}/opportunities/${opportunityId}/interest`, {
+    clearApiCache('opportunities');
+    const res = await fetchWithTimeout(`${API_BASE}/opportunities/${opportunityId}/interest`, {
       method: 'POST',
       headers: getAuthHeaders()
     });
@@ -171,14 +274,23 @@ export const api = {
   },
 
   getDSAMatches: async (): Promise<{ matches: any[] }> => {
-    const res = await fetch(`${API_BASE}/dsa/matches`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `dsa:${token}`;
+    const cached = getCached<{ matches: any[] }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/dsa/matches`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   checkInDSAStreak: async (): Promise<{ message: string; dsaProfile: DSAProfile; user: User }> => {
-    const res = await fetch(`${API_BASE}/dsa/checkin`, {
+    clearApiCache('me');
+    clearApiCache('dsa');
+    const res = await fetchWithTimeout(`${API_BASE}/dsa/checkin`, {
       method: 'POST',
       headers: getAuthHeaders()
     });
@@ -186,14 +298,22 @@ export const api = {
   },
 
   getNotifications: async (): Promise<{ notifications: NotificationItem[]; unreadCount: number }> => {
-    const res = await fetch(`${API_BASE}/notifications`, {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('teamup_token') || 'user-anshk') : 'user-anshk';
+    const cacheKey = `notifications:${token}`;
+    const cached = getCached<{ notifications: NotificationItem[]; unreadCount: number }>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetchWithTimeout(`${API_BASE}/notifications`, {
       headers: getAuthHeaders()
     });
-    return res.json();
+    const data = await res.json();
+    setCached(cacheKey, data);
+    return data;
   },
 
   markNotificationRead: async (id: string) => {
-    const res = await fetch(`${API_BASE}/notifications/${id}/read`, {
+    clearApiCache('notifications');
+    const res = await fetchWithTimeout(`${API_BASE}/notifications/${id}/read`, {
       method: 'PUT',
       headers: getAuthHeaders()
     });
@@ -201,7 +321,8 @@ export const api = {
   },
 
   markAllNotificationsRead: async () => {
-    const res = await fetch(`${API_BASE}/notifications/read-all`, {
+    clearApiCache('notifications');
+    const res = await fetchWithTimeout(`${API_BASE}/notifications/read-all`, {
       method: 'PUT',
       headers: getAuthHeaders()
     });

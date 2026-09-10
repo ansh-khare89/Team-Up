@@ -87,6 +87,7 @@ function MessagesContent() {
                   }`}>
                   {conv.user.profilePicture ? (
                     <img src={conv.user.profilePicture} alt={conv.user.name}
+                      loading="lazy" decoding="async" width={40} height={40}
                       className="w-10 h-10 rounded-2xl object-cover ring-2 ring-slate-100 flex-shrink-0" />
                   ) : (
                     <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
@@ -132,6 +133,7 @@ function MessagesContent() {
                 <>
                   {otherUser.profilePicture ? (
                     <img src={otherUser.profilePicture} alt={otherUser.name}
+                      loading="lazy" decoding="async" width={40} height={40}
                       className="w-10 h-10 rounded-2xl object-cover ring-2 ring-slate-100" />
                   ) : (
                     <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-sm font-bold text-white">

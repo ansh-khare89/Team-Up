@@ -33,6 +33,10 @@ const DEMO_USERS = [
   { id: 'user-rahul', name: 'Rahul Sharma', college: 'BITS Pilani', role: 'CV & Deep Learning' },
   { id: 'user-priya', name: 'Priya Patel', college: 'NIT Trichy', role: 'Frontend & UI' },
   { id: 'user-aarav', name: 'Aarav Mehta', college: 'IIIT Hyd', role: 'DSA & Systems' },
+  { id: 'user-sneha', name: 'Sneha Rao', college: 'IIT Delhi', role: 'Flutter & Mobile' },
+  { id: 'user-rohan', name: 'Rohan Verma', college: 'BITS Goa', role: 'Go & Cloud' },
+  { id: 'user-ananya', name: 'Ananya Gupta', college: 'DTU Delhi', role: 'Next.js & React' },
+  { id: 'user-vikram', name: 'Vikram Singh', college: 'IIT Roorkee', role: 'NLP & LLMs' },
 ];
 
 export default function Sidebar() {
@@ -118,7 +122,7 @@ export default function Sidebar() {
           </button>
 
           {showDemoMenu && (
-            <div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-slate-200 rounded-2xl p-1.5 shadow-xl z-50 divide-y divide-slate-100">
+            <div className="absolute bottom-full left-0 right-0 mb-2 max-h-60 overflow-y-auto bg-white border border-slate-200 rounded-2xl p-1.5 shadow-xl z-50 divide-y divide-slate-100">
               <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                 Switch Student View:
               </div>
@@ -137,7 +141,7 @@ export default function Sidebar() {
                     <p className={`text-xs font-semibold truncate ${user?.id === u.id ? 'text-indigo-700' : 'text-slate-800'}`}>
                       {u.name}
                     </p>
-                    <p className="text-[10px] text-slate-400 truncate">{u.college}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{u.college} · {u.role}</p>
                   </div>
                   {user?.id === u.id && <span className="w-2 h-2 rounded-full bg-indigo-600" />}
                 </button>
@@ -158,6 +162,10 @@ export default function Sidebar() {
               <img
                 src={user.profilePicture}
                 alt={user.name}
+                loading="lazy"
+                decoding="async"
+                width={36}
+                height={36}
                 className="w-9 h-9 rounded-xl object-cover ring-2 ring-slate-200 group-hover:ring-indigo-300 transition-all"
               />
             ) : (

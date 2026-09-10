@@ -59,6 +59,7 @@ export default function StudentProfilePage() {
           <div className="card-human bg-white border border-slate-200/90 rounded-3xl p-6 text-center shadow-sm">
             {student.profilePicture ? (
               <img src={student.profilePicture} alt={student.name}
+                loading="lazy" decoding="async" width={96} height={96}
                 className="w-24 h-24 rounded-2xl object-cover mx-auto mb-4 ring-2 ring-slate-100 shadow-sm" />
             ) : (
               <div className="w-24 h-24 rounded-2xl bg-indigo-600 flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4 shadow-sm">

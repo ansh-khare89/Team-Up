@@ -27,16 +27,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const fetchMe = async () => {
     try {
       setLoading(true);
+      if (typeof window !== 'undefined' && !localStorage.getItem('teamup_token')) {
+        localStorage.setItem('teamup_token', 'user-anshk');
+      }
       const res = await api.getMe();
       setUser(res.user);
     } catch (err) {
-      if (typeof window !== 'undefined') localStorage.setItem('teamup_token', 'user-anshk');
-      try {
-        const res = await api.getMe();
-        setUser(res.user);
-      } catch (e) {
-        setUser(null);
-      }
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -56,6 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     if (typeof window !== 'undefined') localStorage.removeItem('teamup_token');
+    api.clearCache();
     setUser(null);
   };
 
@@ -67,6 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const switchDemoUser = async (userId: string) => {
     if (typeof window !== 'undefined') localStorage.setItem('teamup_token', userId);
+    api.clearCache();
     await fetchMe();
   };
 
