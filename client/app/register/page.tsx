@@ -60,6 +60,13 @@ export default function RegisterPage() {
             </div>
           )}
 
+          {loading && (
+            <div className="mb-4 px-4 py-3 bg-violet-500/10 border border-violet-500/20 rounded-xl text-violet-400 text-xs font-semibold relative flex items-center gap-3 animate-pulse">
+              <div className="w-4 h-4 border-2 border-violet-400/30 border-t-violet-400 rounded-full animate-spin flex-shrink-0" />
+              <p>Waking up the server... This might take up to a minute on the first registration.</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4 relative">
             <div>
               <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">
