@@ -1,19 +1,19 @@
 import { Skill } from '../types';
 
 const LEVEL_STYLES: Record<string, string> = {
-  Advanced: 'bg-gradient-to-r from-teal-50 to-emerald-50 text-teal-700 border-2 border-teal-200',
-  Intermediate: 'bg-gradient-to-r from-[#4ECDC4]/10 to-teal-50 text-[#4ECDC4] border-2 border-[#4ECDC4]/30',
-  Beginner: 'bg-gradient-to-r from-[#8B8680]/10 to-stone-50 text-[#8B8680] border-2 border-[#8B8680]/30',
+  Advanced: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+  Intermediate: 'bg-violet-500/10 text-violet-400 border border-violet-500/20',
+  Beginner: 'bg-zinc-500/10 text-zinc-400 border border-zinc-600/20',
 };
 
 const CATEGORY_DOT: Record<string, string> = {
-  'Programming Languages': 'bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]',
-  'Web Development': 'bg-gradient-to-r from-[#4ECDC4] to-teal-500',
-  'AI / Machine Learning': 'bg-gradient-to-r from-[#FF8C42] to-[#FF6B35]',
-  'Mobile Development': 'bg-gradient-to-r from-teal-400 to-emerald-500',
-  'DevOps / Cloud': 'bg-gradient-to-r from-[#4ECDC4] to-cyan-500',
-  'Problem Solving': 'bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]',
-  'Other Technical Skills': 'bg-gradient-to-r from-[#8B8680] to-stone-400',
+  'Programming Languages': 'bg-violet-400',
+  'Web Development': 'bg-sky-400',
+  'AI / Machine Learning': 'bg-pink-400',
+  'Mobile Development': 'bg-emerald-400',
+  'DevOps / Cloud': 'bg-orange-400',
+  'Problem Solving': 'bg-amber-400',
+  'Other Technical Skills': 'bg-zinc-400',
 };
 
 interface SkillBadgeProps {
@@ -23,10 +23,10 @@ interface SkillBadgeProps {
 
 export default function SkillBadge({ skill, showLevel = true }: SkillBadgeProps) {
   const style = LEVEL_STYLES[skill.level] || LEVEL_STYLES['Beginner'];
-  const dot = CATEGORY_DOT[skill.category] || 'bg-gradient-to-r from-[#8B8680] to-stone-400';
+  const dot = CATEGORY_DOT[skill.category] || 'bg-zinc-400';
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border-2 ${style}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold ${style}`}>
       <span className={`w-1.5 h-1.5 rounded-full ${dot} flex-shrink-0`} />
       <span>{skill.name}</span>
       {showLevel && (
@@ -35,4 +35,3 @@ export default function SkillBadge({ skill, showLevel = true }: SkillBadgeProps)
     </span>
   );
 }
-

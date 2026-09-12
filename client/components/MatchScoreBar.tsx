@@ -5,19 +5,19 @@ interface MatchScoreBarProps {
 }
 
 const SCORE_COLOR = (pct: number) => {
-  if (pct >= 80) return 'from-teal-400 to-emerald-500 text-teal-700';
-  if (pct >= 60) return 'from-[#4ECDC4] to-teal-500 text-[#4ECDC4]';
-  if (pct >= 40) return 'from-[#FF8C42] to-[#FF6B35] text-[#FF8C42]';
-  return 'from-[#8B8680] to-stone-500 text-[#8B8680]';
+  if (pct >= 80) return { gradient: 'from-emerald-500 to-teal-400', text: 'text-emerald-400' };
+  if (pct >= 60) return { gradient: 'from-violet-500 to-indigo-400', text: 'text-violet-400' };
+  if (pct >= 40) return { gradient: 'from-amber-500 to-orange-400', text: 'text-amber-400' };
+  return { gradient: 'from-zinc-500 to-zinc-400', text: 'text-zinc-400' };
 };
 
 const LABEL_COLORS: Record<string, string> = {
-  goalMatchScore: 'bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]',
-  complementarySkillsScore: 'bg-gradient-to-r from-[#4ECDC4] to-teal-500',
-  commonSkillsScore: 'bg-gradient-to-r from-teal-400 to-emerald-500',
-  experienceScore: 'bg-gradient-to-r from-[#FF8C42] to-[#FF6B35]',
-  availabilityScore: 'bg-gradient-to-r from-[#4ECDC4] to-cyan-500',
-  activityScore: 'bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]',
+  goalMatchScore: 'bg-violet-500',
+  complementarySkillsScore: 'bg-sky-500',
+  commonSkillsScore: 'bg-emerald-500',
+  experienceScore: 'bg-amber-500',
+  availabilityScore: 'bg-teal-500',
+  activityScore: 'bg-pink-500',
 };
 
 const LABEL_NAMES: Record<string, string> = {
@@ -37,13 +37,13 @@ export default function MatchScoreBar({ percentage, breakdown, compact = false }
     <div className="space-y-2">
       {/* Main score */}
       <div className="flex items-center justify-between gap-3">
-        <div className="flex-1 h-2 bg-gradient-to-r from-[#FFF9ED] to-[#FFF4E5] rounded-full overflow-hidden border-2 border-[#FDF2D8]">
+        <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className={`h-full bg-gradient-to-r ${color.split(' ')[0]} ${color.split(' ')[1]} rounded-full transition-all duration-700`}
+            className={`h-full bg-gradient-to-r ${color.gradient} rounded-full transition-all duration-700`}
             style={{ width: `${pct}%` }}
           />
         </div>
-        <span className={`text-xs font-bold ${color.split(' ')[2]} flex-shrink-0`}>
+        <span className={`text-xs font-bold ${color.text} flex-shrink-0`}>
           {pct}%
         </span>
       </div>
@@ -53,14 +53,14 @@ export default function MatchScoreBar({ percentage, breakdown, compact = false }
         <div className="space-y-1.5 pt-1">
           {Object.entries(breakdown).map(([key, val]) => (
             <div key={key} className="flex items-center gap-2">
-              <span className="text-xs text-[#8B8680] w-28 truncate">{LABEL_NAMES[key] || key}</span>
-              <div className="flex-1 h-1.5 bg-gradient-to-r from-[#FFF9ED] to-[#FFF4E5] rounded-full overflow-hidden border-2 border-[#FDF2D8]">
+              <span className="text-xs text-zinc-400 w-28 truncate">{LABEL_NAMES[key] || key}</span>
+              <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
                 <div
-                  className={`h-full ${LABEL_COLORS[key] || 'bg-gradient-to-r from-[#8B8680] to-stone-400'} rounded-full`}
+                  className={`h-full ${LABEL_COLORS[key] || 'bg-zinc-500'} rounded-full`}
                   style={{ width: `${Math.min(100, val)}%` }}
                 />
               </div>
-              <span className="text-xs font-medium text-[#2D2A26] w-8 text-right">{Math.round(val)}%</span>
+              <span className="text-xs font-medium text-zinc-300 w-8 text-right">{Math.round(val)}%</span>
             </div>
           ))}
         </div>
@@ -68,4 +68,3 @@ export default function MatchScoreBar({ percentage, breakdown, compact = false }
     </div>
   );
 }
-

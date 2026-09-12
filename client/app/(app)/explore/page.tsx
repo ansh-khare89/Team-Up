@@ -58,36 +58,36 @@ export default function ExplorePage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold mb-2">
-            <Sparkles size={13} className="text-indigo-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold mb-2">
+            <Sparkles size={13} className="text-violet-400" />
             <span>Campus Peer Directory</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Discover Student Peers</h1>
-          <p className="text-slate-500 text-sm">Find teammates with complementary skills for hackathons, startups & DSA</p>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight">Discover Student Peers</h1>
+          <p className="text-zinc-500 text-sm">Find teammates with complementary skills for hackathons, startups & DSA</p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 bg-white px-3.5 py-2 rounded-xl border border-slate-200 self-start md:self-auto shadow-sm">
-          <Users size={15} className="text-indigo-600" />
-          <span><strong className="text-slate-900">{students.length}</strong> students online</span>
+        <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400 bg-zinc-800/50 px-3.5 py-2 rounded-xl border border-zinc-700/50 self-start md:self-auto">
+          <Users size={15} className="text-violet-400" />
+          <span><strong className="text-white">{students.length}</strong> students online</span>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="card-human rounded-2xl p-4 shadow-sm space-y-3 bg-white border border-slate-200">
+      <div className="card-human rounded-2xl p-4 space-y-3">
         <div className="flex gap-2.5">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search by student name, college, skills (e.g. Python, React, BITS)..."
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+              className="w-full pl-10 pr-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-violet-500 text-sm font-medium transition-all"
             />
             {search && (
               <button
                 onClick={() => setSearch('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
               >
                 <X size={14} />
               </button>
@@ -95,10 +95,10 @@ export default function ExplorePage() {
           </div>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all shadow-sm ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all ${
               hasFilters
-                ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                ? 'bg-violet-600 border-violet-600 text-white'
+                : 'bg-zinc-800/50 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800'
             }`}
           >
             <SlidersHorizontal size={14} />
@@ -109,15 +109,15 @@ export default function ExplorePage() {
 
         {/* Quick Tag Pills */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <span className="text-[11px] font-bold text-slate-400 mr-1">Quick search:</span>
+          <span className="text-[11px] font-bold text-zinc-500 mr-1">Quick search:</span>
           {QUICK_TAGS.map(tag => (
             <button
               key={tag.label}
               onClick={() => setSearch(tag.val)}
               className={`text-xs px-3 py-1 rounded-lg border transition-all ${
                 search === tag.val
-                  ? 'bg-indigo-600 border-indigo-600 text-white font-semibold shadow-sm'
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-violet-600 border-violet-600 text-white font-semibold'
+                  : 'bg-zinc-800/50 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-white'
               }`}
             >
               {tag.label}
@@ -127,38 +127,38 @@ export default function ExplorePage() {
 
         {/* Expanded Filters */}
         {showFilters && (
-          <div className="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="pt-3 border-t border-zinc-700/50 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-1">
                 College / University
               </label>
               <input
                 value={college}
                 onChange={e => setCollege(e.target.value)}
                 placeholder="e.g. IIT Bombay, BITS..."
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white font-medium"
+                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-violet-500 font-medium"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-1">
                 Year of Study
               </label>
               <select
                 value={year}
                 onChange={e => setYear(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 font-medium"
+                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white text-xs focus:outline-none focus:border-violet-500 font-medium"
               >
                 {YEARS.map(y => <option key={y} value={y}>{y || 'All Years'}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-1">
                 Activity Status
               </label>
               <select
                 value={status}
                 onChange={e => setStatus(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 font-medium"
+                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white text-xs focus:outline-none focus:border-violet-500 font-medium"
               >
                 {STATUSES.map(s => <option key={s} value={s}>{s || 'All Activity Levels'}</option>)}
               </select>
@@ -171,7 +171,7 @@ export default function ExplorePage() {
       {loading && students.length === 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {[1, 2, 3, 4, 5, 6].map(i => (
-            <div key={i} className="h-64 bg-white rounded-2xl animate-pulse border border-slate-200 shadow-sm" />
+            <div key={i} className="h-64 bg-zinc-800/50 rounded-2xl animate-pulse border border-zinc-700/50" />
           ))}
         </div>
       ) : students.length > 0 ? (
@@ -181,17 +181,17 @@ export default function ExplorePage() {
           ))}
         </div>
       ) : (
-        <div className="card-human rounded-3xl p-12 text-center space-y-3 bg-white border border-slate-200">
-          <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
+        <div className="card-human rounded-2xl p-12 text-center space-y-3">
+          <div className="w-14 h-14 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center mx-auto">
             <Users size={28} />
           </div>
-          <h3 className="text-lg font-bold text-slate-900">No students matched your search</h3>
-          <p className="text-slate-500 text-xs max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-white">No students matched your search</h3>
+          <p className="text-zinc-500 text-xs max-w-sm mx-auto">
             Try adjusting your search keywords, clear the college filter, or check back later.
           </p>
           <button
             onClick={() => { setSearch(''); setCollege(''); setYear(''); setStatus(''); }}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition-all shadow-sm"
+            className="btn-creative px-4 py-2 text-white rounded-xl text-xs font-semibold transition-all"
           >
             Clear All Filters
           </button>
@@ -200,4 +200,3 @@ export default function ExplorePage() {
     </div>
   );
 }
-
