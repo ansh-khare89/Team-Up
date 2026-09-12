@@ -60,11 +60,11 @@ export default function Sidebar() {
   const streak = user?.dsaProfile?.streakCount || 0;
 
   return (
-    <aside className="w-64 h-screen bg-white/90 backdrop-blur-lg border-r-2 border-[#FDF2D8] flex flex-col fixed left-0 top-0 z-40 shadow-[4px_0_20px_rgba(255,107,53,0.08)]">
+    <aside className="w-64 h-screen bg-white/95 backdrop-blur-xl border-r-2 border-[#FDF2D8] flex flex-col fixed left-0 top-0 z-40 shadow-[4px_0_24px_rgba(255,107,53,0.06)]">
       {/* Brand Header */}
-      <div className="px-5 py-6 border-b border-[#FDF2D8]">
+      <div className="px-5 py-6 border-b-2 border-[#FDF2D8]">
         <Link href="/dashboard" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#4ECDC4] rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+          <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#4ECDC4] rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25 group-hover:scale-105 group-hover:rotate-3 transition-all duration-300">
             <Users size={21} className="text-white" />
           </div>
           <div>
@@ -152,7 +152,7 @@ export default function Sidebar() {
       </div>
 
       {/* User Profile Card & Sign Out */}
-      <div className="px-3 pb-4 border-t border-[#FDF2D8] pt-3">
+      <div className="px-3 pb-4 border-t-2 border-[#FDF2D8] pt-3">
         <Link
           href="/profile"
           className="flex items-center gap-3 p-2 rounded-2xl hover:bg-[#FFF9ED] transition-colors group mb-1.5"

@@ -42,23 +42,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-6 lg:p-12 relative">
+    <div className="min-h-screen bg-[#FFFBF0] flex items-center justify-center p-4 sm:p-6 lg:p-12 relative">
       <div className="relative w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Community Showcase */}
         <div className="hidden lg:block lg:col-span-6 space-y-6 pr-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
-            <Sparkles size={14} className="text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#FF6B35]/10 to-[#4ECDC4]/10 border-2 border-[#FF6B35]/30 text-[#FF6B35] text-xs font-semibold">
+            <Sparkles size={14} className="text-[#FF6B35]" />
             <span>Campus Collaboration Network</span>
           </div>
 
-          <h1 className="text-4xl xl:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl xl:text-5xl font-black text-[#2D2A26] tracking-tight leading-tight">
             Stop coding alone. <br />
-            <span className="text-indigo-600">
+            <span className="text-gradient">
               Build with peers.
             </span>
           </h1>
 
-          <p className="text-slate-600 text-base leading-relaxed">
+          <p className="text-[#8B8680] text-base leading-relaxed">
             Team Up matches you with students across top universities based on complementary skills, hackathon goals, and daily DSA practice.
           </p>
 
@@ -68,8 +68,8 @@ export default function LoginPage() {
               { icon: Flame, text: 'DSA buddy matching with daily LeetCode accountability' },
               { icon: CheckCircle2, text: 'Real-time direct messaging and team recruitment' },
             ].map((feat, i) => (
-              <div key={i} className="flex items-center gap-3 text-sm text-slate-700 font-medium">
-                <div className="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+              <div key={i} className="flex items-center gap-3 text-sm text-[#2D2A26] font-medium">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-r from-[#FF6B35]/10 to-[#4ECDC4]/10 border-2 border-[#FF6B35]/30 flex items-center justify-center text-[#FF6B35] flex-shrink-0">
                   <feat.icon size={16} />
                 </div>
                 <span>{feat.text}</span>
@@ -89,68 +89,68 @@ export default function LoginPage() {
                 <img key={i} src={src} alt="student" className="w-8 h-8 rounded-full object-cover ring-2 ring-white" />
               ))}
             </div>
-            <p className="text-xs text-slate-500 font-medium">
-              Joined by students from <span className="text-slate-900 font-bold">IITs, BITS, NITs & IIITs</span>
+            <p className="text-xs text-[#8B8680] font-medium">
+              Joined by students from <span className="text-[#2D2A26] font-bold">IITs, BITS, NITs & IIITs</span>
             </p>
           </div>
         </div>
 
         {/* Right Side: Login Card */}
         <div className="lg:col-span-6 w-full max-w-md mx-auto">
-          <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200/90 relative">
+          <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-xl border-2 border-[#FDF2D8] relative">
             {/* Header */}
             <div className="flex items-center gap-3.5 mb-6">
-              <div className="w-11 h-11 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-md shadow-indigo-600/20">
+              <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#4ECDC4] rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/20">
                 <Users size={22} className="text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Welcome back</h2>
-                <p className="text-xs text-slate-500 font-medium">Sign in to your student workspace</p>
+                <h2 className="text-xl font-bold text-[#2D2A26]">Welcome back</h2>
+                <p className="text-xs text-[#8B8680] font-medium">Sign in to your student workspace</p>
               </div>
             </div>
 
             {error && (
-              <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-semibold">
+              <div className="mb-4 px-4 py-3 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 text-xs font-semibold">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B8680]" />
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     placeholder="ansh@iitb.ac.in"
                     required
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white text-sm font-medium transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B8680]" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white text-sm font-medium transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8B8680] hover:text-[#FF6B35]"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -160,7 +160,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                className="btn-creative w-full flex items-center justify-center gap-2 py-3 text-white font-semibold rounded-xl shadow-lg shadow-[#FF6B35]/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -171,12 +171,12 @@ export default function LoginPage() {
             </form>
 
             {/* Quick Demo Switcher Grid */}
-            <div className="mt-6 pt-5 border-t border-slate-100">
+            <div className="mt-6 pt-5 border-t-2 border-[#FDF2D8]">
               <div className="flex items-center justify-between mb-2.5">
-                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-                  <Sparkles size={12} className="text-amber-500" /> 1-Click Demo Profiles
+                <span className="text-[11px] font-bold text-[#8B8680] uppercase tracking-wider flex items-center gap-1">
+                  <Sparkles size={12} className="text-[#FF6B35]" /> 1-Click Demo Profiles
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">Click to login</span>
+                <span className="text-[10px] text-[#8B8680] font-medium">Click to login</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
@@ -188,21 +188,21 @@ export default function LoginPage() {
                   <button
                     key={u.id}
                     onClick={() => handleDemo(u.id)}
-                    className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 rounded-xl text-left transition-all group"
+                    className="p-2.5 bg-[#FFF9ED] hover:bg-[#FFE9CC] border-2 border-[#FDF2D8] hover:border-[#FF6B35]/30 rounded-xl text-left transition-all group"
                   >
                     <div className="flex items-center justify-between">
-                      <p className="text-slate-900 text-xs font-bold truncate group-hover:text-indigo-600">{u.name}</p>
-                      <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-100">{u.badge}</span>
+                      <p className="text-[#2D2A26] text-xs font-bold truncate group-hover:text-[#FF6B35]">{u.name}</p>
+                      <span className="text-[9px] px-1 py-0.2 rounded bg-gradient-to-r from-[#FF6B35]/10 to-[#4ECDC4]/10 text-[#FF6B35] font-bold border-2 border-[#FF6B35]/30">{u.badge}</span>
                     </div>
-                    <p className="text-slate-500 text-[10px] truncate mt-0.5">{u.college}</p>
+                    <p className="text-[#8B8680] text-[10px] truncate mt-0.5">{u.college}</p>
                   </button>
                 ))}
               </div>
             </div>
 
-            <p className="mt-5 text-center text-xs text-slate-500">
+            <p className="mt-5 text-center text-xs text-[#8B8680]">
               Don't have an account yet?{' '}
-              <Link href="/register" className="text-indigo-600 hover:text-indigo-700 font-bold underline underline-offset-2">
+              <Link href="/register" className="text-[#FF6B35] hover:text-[#FF8C42] font-bold underline underline-offset-2">
                 Sign up free
               </Link>
             </p>

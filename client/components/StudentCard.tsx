@@ -168,7 +168,7 @@ export default function StudentCard({ student, match, showConnect = true, onConn
             disabled={loading || connected}
             className={`btn-creative flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold transition-all shadow-sm ${
               connected
-                ? 'bg-gradient-to-r from-teal-50 to-emerald-50 text-teal-700 border-2 border-teal-200'
+                ? 'bg-gradient-to-r from-teal-50 to-emerald-50 text-teal-700 border-2 border-teal-200 !text-teal-700 !shadow-none'
                 : ''
             }`}
           >

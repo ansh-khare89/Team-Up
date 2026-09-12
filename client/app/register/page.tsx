@@ -29,68 +29,68 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-6 lg:p-12 relative">
+    <div className="min-h-screen bg-[#FFFBF0] flex items-center justify-center p-4 sm:p-6 lg:p-12 relative">
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-md shadow-indigo-600/20">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B35] to-[#4ECDC4] rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/20">
               <Users size={24} className="text-white" />
             </div>
-            <span className="text-3xl font-black text-slate-900 tracking-tight">Team Up</span>
+            <span className="text-3xl font-black text-[#2D2A26] tracking-tight">Team Up</span>
           </div>
-          <p className="text-slate-500 text-sm font-medium">Join the network where top student builders connect.</p>
+          <p className="text-[#8B8680] text-sm font-medium">Join the network where top student builders connect.</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200/90">
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Create Student Account</h1>
-          <p className="text-slate-500 text-xs mb-6 font-medium">Takes less than 30 seconds to join your campus peers</p>
+        <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-xl border-2 border-[#FDF2D8]">
+          <h1 className="text-2xl font-bold text-[#2D2A26] mb-1">Create Student Account</h1>
+          <p className="text-[#8B8680] text-xs mb-6 font-medium">Takes less than 30 seconds to join your campus peers</p>
 
           {error && (
-            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-semibold">
+            <div className="mb-4 px-4 py-3 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 text-xs font-semibold">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                 Full Name
               </label>
               <div className="relative">
-                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B8680]" />
                 <input
                   type="text"
                   value={form.name}
                   onChange={e => setForm({ ...form, name: e.target.value })}
                   placeholder="e.g. Arjun Sharma"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white text-sm font-medium transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                 Email
               </label>
               <div className="relative">
-                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B8680]" />
                 <input
                   type="email"
                   value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })}
                   placeholder="arjun@iitb.ac.in"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white text-sm font-medium transition-all"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                   University / College
                 </label>
                 <input
@@ -99,11 +99,11 @@ export default function RegisterPage() {
                   onChange={e => setForm({ ...form, college: e.target.value })}
                   placeholder="IIT Bombay"
                   required
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white font-medium"
+                  className="w-full px-3 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] text-xs placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                   Major / Branch
                 </label>
                 <input
@@ -112,17 +112,17 @@ export default function RegisterPage() {
                   onChange={e => setForm({ ...form, branch: e.target.value })}
                   placeholder="Computer Science"
                   required
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white font-medium"
+                  className="w-full px-3 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] text-xs placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white font-medium"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#8B8680] uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B8680]" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={form.password}
@@ -130,12 +130,12 @@ export default function RegisterPage() {
                   placeholder="At least 6 characters"
                   required
                   minLength={6}
-                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white text-sm font-medium transition-all"
+                  className="w-full pl-10 pr-10 py-2.5 bg-[#FFF9ED] border-2 border-[#FDF2D8] rounded-xl text-[#2D2A26] placeholder-[#8B8680] focus:outline-none focus:ring-2 focus:ring-[#FF6B35] focus:bg-white text-sm font-medium transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8B8680] hover:text-[#FF6B35]"
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -145,7 +145,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+              className="btn-creative w-full flex items-center justify-center gap-2 py-3 text-white font-semibold rounded-xl shadow-lg shadow-[#FF6B35]/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -155,9 +155,9 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="mt-5 text-center text-xs text-slate-500">
+          <p className="mt-5 text-center text-xs text-[#8B8680]">
             Already have an account?{' '}
-            <Link href="/login" className="text-indigo-600 hover:text-indigo-700 font-bold underline underline-offset-2">
+            <Link href="/login" className="text-[#FF6B35] hover:text-[#FF8C42] font-bold underline underline-offset-2">
               Sign in
             </Link>
           </p>

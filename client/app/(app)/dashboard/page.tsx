@@ -86,10 +86,10 @@ export default function DashboardPage() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-7">
+    <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
       {/* Top Welcome Hero Banner */}
-      <div className="rounded-3xl bg-white/90 backdrop-blur-lg border-2 border-[#FDF2D8] p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="space-y-2.5">
+      <div className="rounded-3xl bg-white/95 backdrop-blur-xl border-2 border-[#FDF2D8] p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#FF6B35]/10 to-[#4ECDC4]/10 border-2 border-[#FF6B35]/30 text-[#FF6B35] text-xs font-semibold">
             <GraduationCap size={14} className="text-[#FF6B35]" />
             <span>{user.college || 'Campus Member'}</span>
@@ -171,7 +171,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/connections"
-            className="btn-creative px-4 py-2 text-[#2D2A26] text-xs font-bold rounded-xl transition-all shadow-sm"
+            className="btn-creative px-4 py-2 text-white text-xs font-bold rounded-xl transition-all shadow-sm"
           >
             Respond
           </Link>
